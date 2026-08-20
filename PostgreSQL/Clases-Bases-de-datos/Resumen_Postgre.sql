@@ -59,3 +59,30 @@ nombre_carrera varchar(50) not null
 --poblamos la tabla 
 insert into carreras (nombre_carrera)
 values ('ingenieria inrformatica'), ('Medicina'), ('Disenio');
+
+--para empezar debemos alterar la tabla de estudiantes, agregando una columna 
+alter table estudiantes add column carrera_id int;
+
+--ahora establecemos la relacion (foreign key) para que apunte a ala tabla de carreras
+ALTER TABLE estudiantes 
+ADD CONSTRAINT fk_carrera 
+FOREIGN KEY (carrera_id) REFERENCES carreras(carrera_id);
+--Ahora cuando vamos a el apartado de esquemas podremos ver que estudiantes apunta a carera
+--contuinuaremos poblando datos relacionados
+
+--Actualizaremos estudiantes
+insert into estudiantes (nombre, apellido, fecha_nacimiento, es_activo, carrera_id)
+values ('Maria', 'Lopez', '2001-04-21', true, 2);
+
+insert into estudiantes (nombre, apellido, fecha_nacimiento, es_activo, carrera_id)
+values ('Lucia', 'Magdalena', '2004-04-19', false, 3);
+
+--Para estudaintes ya existentes
+update estudiantes 
+set carrera_id = 1
+where nombre='Pedro';
+
+
+
+
+
