@@ -48,3 +48,14 @@ where nombre = 'Juan';
 -- Borrar un estudainte de la base de datos
 delete from estudiantes 
 where nombre = 'Pedro'
+
+--Ahora con eso hecho, debemos aprender como relacionar tablas (llaves foraneas)
+--crearemos otra tabla 
+create table carreras(
+carrera_id serial primary key,
+nombre_carrera varchar(50) not null 
+);
+
+--poblamos la tabla 
+insert into carreras (nombre_carrera)
+values ('ingenieria inrformatica'), ('Medicina'), ('Disenio');
