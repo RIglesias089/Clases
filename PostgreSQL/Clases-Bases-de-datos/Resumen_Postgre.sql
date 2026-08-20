@@ -82,7 +82,30 @@ update estudiantes
 set carrera_id = 1
 where nombre='Pedro';
 
+--Si lo que queremos es imprimir datos especificos podemos usar la consulta
 
+select 
+	estudiantes.nombre,
+	estudiantes.apellido,
+	carreras.nombre_carrera
+from estudiantes
+inner join carreras on estudiantes.carrera_id = carreras.carrera_id
+
+/*Cuando lo que queremos es hacer un backup de la base de datos, podemos hacerlo 
+ * desde lo que vendria siendo la terminal, usando los siguientes comandos
+ * 
+ * docker exec -t "nombre de el contenedor" pg_dump -U postgres(o el usuario) "nombre de la base de datos > "ruta de guardado y nombre de el archivo".sql
+ * 
+ * 
+ * Ahora que pasara si lo que queremos es restaura una base de datos, primero debemos
+ * crear la base de datos vacia con 
+ * 
+ * create database "nombre de la base de datos"
+ * 
+ * luego haber creado eso vamos a la terminal y ponemos: 
+ * 
+ * cat C:\Users\TuUsuario\Desktop\respaldo_clase_1.sql | docker exec -i "nombre del contenedor" psql -U "usuario" -d "nombre de la base de datos destino"
+ * */
 
 
 
