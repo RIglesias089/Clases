@@ -16,12 +16,15 @@
  *  */
 
 --despues de creada la base de datos, podemos crear tablas
-create table estudiantes(
-estudiante_id serial primary key, --Genera un numero unico automaticamente
-nombre varchar(50) not null,	-- estos llevan not null para que sea obligatorio el campo
-apellido varchar(50) not null,
-fecha_nacimiento date,
-es_activo boolean default true --por defecto el estudiante sera activo
+CREATE TABLE estudiantes(
+    estudiante_id SERIAL PRIMARY KEY, -- Genera un número único automáticamente
+    nombre VARCHAR(50) NOT NULL,    -- Estos llevan not null para que sea obligatorio el campo
+    apellido VARCHAR(50) NOT NULL,
+    fecha_nacimiento DATE,
+    es_activo BOOLEAN DEFAULT TRUE, -- ¡Aquí faltaba la coma al final de esta línea!
+    
+    -- Columna que calcula la edad automáticamente basado en la fecha actual y de nacimiento
+    edad INT GENERATED ALWAYS AS (EXTRACT(YEAR FROM CURRENT_DATE) - anio_nacimiento) STORED
 );
 
 --Ahora que tenemos una tabla, es importante saber como esta se puede poblar, 
@@ -107,5 +110,65 @@ inner join carreras on estudiantes.carrera_id = carreras.carrera_id
  * cat C:\Users\TuUsuario\Desktop\respaldo_clase_1.sql | docker exec -i "nombre del contenedor" psql -U "usuario" -d "nombre de la base de datos destino"
  * */
 
+------------------------------------------------------------------------------------------------
 
+--Ahora una vez visto todo esto dominamos parte de DDL y DML, ahora haremos Selecion de datos avanzada y programcion en la base de datos
+--Iniciamos con filstrado y ordenado (where, and, or, order by)
+--Buscamos un estudiante de la carrera 1 que sea mayor a 15 años de el mas joven al mayor
 
+select  nombre, apellido, edad
+from estudiantes
+where carrera_id= 1 and edad > 20
+order by edad asc;
+
+-- Contar cuántos estudiantes hay registrados por cada número de carrera
+SELECT carrera_id, COUNT(*) AS total_estudiantes
+FROM estudiantes
+GROUP BY carrera_id;
+
+--Programcion con PL/pgSQL
+CREATE OR REPLACE FUNCTION obtener_saludo_estudiante(id_buscado INT) 
+RETURNS TEXT AS $$
+DECLARE
+    nombre_encontrado VARCHAR(50);
+BEGIN
+    -- Buscamos el nombre del estudiante según el parámetro recibido y lo guardamos en una variable
+    SELECT nombre INTO nombre_encontrado 
+    FROM estudiantes 
+    WHERE estudiante_id = id_buscado;
+    
+    -- Retornamos el texto concatenado
+    RETURN 'Hola ' || nombre_encontrado || ', ¡bienvenido a la clase de administración!';
+END;
+$$ LANGUAGE plpgsql;
+
+-- Para probarla y ejecutarla haces una consulta normal:
+SELECT obtener_saludo_estudiante(1);
+
+--If, then, else
+CREATE OR REPLACE FUNCTION evaluar_mayor_edad(id_buscado INT) 
+RETURNS TEXT AS $$
+DECLARE
+    edad_estudiante INT;
+BEGIN
+    SELECT edad INTO edad_estudiante 
+    FROM estudiantes 
+    WHERE estudiante_id = id_buscado;
+    
+    -- Lógica condicional
+    IF edad_estudiante >= 18 THEN
+        RETURN 'El estudiante es mayor de edad';
+    ELSE
+        RETURN 'El estudiante es menor de edad';
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Ejecución:
+SELECT evaluar_mayor_edad(1);
+
+--por ultimo el trigger
+/*Un trigger es un script que se activa automáticamente cuando ocurre un evento específico en 
+ * una tabla (por ejemplo, justo antes o después de que alguien intente hacer un INSERT, UPDATE o DELETE). 
+ * Se usa mucho para auditorías o validaciones automáticas de seguridad.
+ * */
