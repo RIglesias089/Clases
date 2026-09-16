@@ -1,4 +1,3 @@
-// utils/helpers.js
 
 const limpiarTexto = (texto) => {
     if (typeof texto !== 'string') return '';
