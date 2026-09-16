@@ -1,0 +1,31 @@
+Para poder poner a prueba con algunos datos que eh pensado ya podemos poner en el new request:
+
+Registrar una incidencia:
+    "{
+      "empleado": "Juan Perez",
+      "area": "Contabilidad",
+      "descripcion": "No puedo imprimir documentos",
+      "prioridad": "Alta"
+    }"
+
+Listar las incidencias registradas:
+    "[
+      {
+        "id": 1,
+        "empleado": "Juan Perez",
+        "area": "Contabilidad",
+        "descripcion": "No puedo imprimir documentos",
+        "prioridad": "Alta",
+        "estado": "Pendiente"
+      }
+    ]"
+
+Buscar incidencias por el id
+    "{
+  "id": 1,
+  "empleado": "Juan Perez",
+  "area": "Contabilidad",
+  "descripcion": "No puedo imprimir documentos",
+  "prioridad": "Alta",
+  "estado": "Pendiente"
+}"
