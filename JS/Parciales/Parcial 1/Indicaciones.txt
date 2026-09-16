@@ -1,6 +1,6 @@
 Para poder poner a prueba con algunos datos que eh pensado ya podemos poner en el new request:
 
-Registrar una incidencia:
+Registrar una incidencia: POST http://localhost:3000/incidencias
     "{
       "empleado": "Juan Perez",
       "area": "Contabilidad",
@@ -8,24 +8,17 @@ Registrar una incidencia:
       "prioridad": "Alta"
     }"
 
-Listar las incidencias registradas:
-    "[
-      {
-        "id": 1,
-        "empleado": "Juan Perez",
-        "area": "Contabilidad",
-        "descripcion": "No puedo imprimir documentos",
-        "prioridad": "Alta",
-        "estado": "Pendiente"
-      }
-    ]"
+Listar las incidencias registradas: GET http://localhost:3000/incidencias
 
-Buscar incidencias por el id
+Buscar incidencias por el id: GET http://localhost:3000/incidencias/1
+
+Cambiar el estado de una incidencia ya creada: PUT http://localhost:3000/incidencias/1/estado
     "{
-  "id": 1,
-  "empleado": "Juan Perez",
-  "area": "Contabilidad",
-  "descripcion": "No puedo imprimir documentos",
-  "prioridad": "Alta",
-  "estado": "Pendiente"
-}"
+    "estado": "En Proceso"
+    }"
+
+Eliminar incidencias: DELETE http://localhost:3000/incidencias/ "numero a eliminar"
+
+Estadisticas: GET http://localhost:3000/incidencias/estadisticas
+
+Clasificar automaticamente: GET http://localhost:3000/incidencias/1/clasificacion
