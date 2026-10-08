@@ -35,4 +35,33 @@
       una dirección (como `localhost`) y un puerto numérico específico 
       (ej. `3000`), el cual actúa como la puerta de enlace para que el navegador 
       pueda comunicarse con nuestra aplicación.
-*/
+      */
+
+let msj = "hola, este es un mensaje"
+
+console.log(msj);
+
+//si queremos recibir informacion a nivel de endpoint (el url especifico), recibiremos parametros
+//Estos estan en un objeto de JS | JSON (Javascript objet notation), el contenido que hay
+//dentro de un objeto es un parametro o elementos.
+let params = {
+  name: "jhon",
+  password: "123",
+  age: 12,
+  isActive: false
+}
+
+//buscamos ponder una condicion con la informacion que recibimos
+//si tuvieramos una base de datos, corraboramos y con eso validamos que el nombre y la contrasena
+//sean correctas y existan. Eso porque tenemos esos parametros dentro de un "objeto de JS"
+if(nameuser === "jhon" && password === "123" && age === 12 && params.isActive === false){
+  console.log("Usuario existente");
+} else {
+  console.log("Usuario no existente")  
+};
+
+//un objeto puede tener cualquier tipo de cosa siempre y cuando hablemos de JS, 
+//cuando hablamos de Typescripot estos  deben tener un tipo y yo debo decirle
+//que tipo de conteenido va a llevar ese objeto
+
+
