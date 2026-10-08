@@ -231,3 +231,4 @@ WHERE statement LIKE '%delete%'
 ORDER BY event_time DESC;
 GO
 
+--creamos una vista para no estar llamando a cada una (solucionar y hacerlo0
